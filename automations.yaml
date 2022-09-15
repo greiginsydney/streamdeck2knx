@@ -1,0 +1,12 @@
+- id: '1661737445683'
+  alias: JSON to KNX converter
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: send_knx_message
+  condition: []
+  action:
+  - service: script.send2knx
+    data:
+      payload: '{{ trigger.json }}'
+  mode: single
