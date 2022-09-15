@@ -3,33 +3,7 @@ send2knx:
   mode: queued
   max: 2
   sequence:
-  - choose:
-    - conditions:
-      - condition: template
-        value_template: "{{ payload.action == 'onoff' }}"
-      sequence:
-      - service: knx.send
-        data:
-          address: "{{ payload.group }}"
-          payload: "{% if (payload.value == 'off') %}0{% else %}1{% endif %}"
-    - conditions:
-      - condition: template
-        value_template: "{{ payload.action == 'dim' }}"
-      sequence:
-      - service: knx.send
-        data:
-          address: "{{ payload.group }}"
-          payload: "{% if (payload.value == 'up') %}11{% else %}3{% endif %}"
-    - conditions:
-      - condition: template
-        value_template: "{{ payload.action == 'ct' }}"
-      sequence:
-      - service: knx.send
-        data:
-          address: "{{ payload.group }}"
-          payload: "{% if (payload.value == 'up') %}11{% else %}3{% endif %}"
-    default:
-       service: logbook.log
-       data:
-         name: Bad StreamDeck trigger
-         message: Data = '{{ payload.group }} - {{ payload.action }} - {{ payload.value }}'
+    - service: knx.send
+      data:
+        address: "{{ payload.group }}"
+        payload: "{{ payload.value }}"
