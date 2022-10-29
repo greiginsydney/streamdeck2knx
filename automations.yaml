@@ -1,4 +1,4 @@
-- id: '1661737445683'
+- id: json_to_knx_converter
   alias: JSON to KNX converter
   description: ''
   trigger:
